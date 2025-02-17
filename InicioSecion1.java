@@ -2,12 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.ingenieriadesoftware;
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
 /**
  *
@@ -17,6 +11,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 public class InicioSecion1 extends JFrame {
@@ -32,21 +29,28 @@ public class InicioSecion1 extends JFrame {
 
         // Definir usuarios y contraseñas
         usuarios = new HashMap<>();
-        usuarios.put("usuario1", "contraseña1");
-        usuarios.put("usuario2", "contraseña2");
+        usuarios.put("US1", "123456");
+        usuarios.put("US2", "1234567");
 
         // Panel principal con GridLayout (2 columnas)
         JPanel mainPanel = new JPanel(new GridLayout(1, 2));
 
-        // Panel izquierdo (Imagen)
+        // Panel izquierdo (Imagen desde Internet)
         JLabel imageLabel = new JLabel();
-        imageLabel.setIcon(new ImageIcon("fondo.jpg")); // Imagen de fondo
+        try {
+            URL imageUrl = new URL("https://i.imgur.com/b4cD78s.png"); // Cambia esta URL por tu imagen
+            BufferedImage img = ImageIO.read(imageUrl);
+            Image scaledImg = img.getScaledInstance(300, 400, Image.SCALE_SMOOTH);
+            imageLabel.setIcon(new ImageIcon(scaledImg));
+        } catch (Exception e) {
+            imageLabel.setText("Error al cargar imagen");
+        }
         imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         mainPanel.add(imageLabel);
 
-        // Panel derecho (Blanco con formulario
+        // Panel derecho (Blanco con formulario)
         JPanel loginPanel = new JPanel();
-        loginPanel.setBackground(Color.WHITE);
+        loginPanel.setBackground(Color.decode("#3A5FCD"));
         loginPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -105,12 +109,13 @@ public class InicioSecion1 extends JFrame {
         nuevaVentana.setSize(400, 300);
         nuevaVentana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         nuevaVentana.setLocationRelativeTo(null);
-
+/////////////////////////////////////ELIMINAR/////////////////////////////////////////////////
         JLabel mensaje = new JLabel("¡Bienvenido al sistema!", SwingConstants.CENTER);
         mensaje.setFont(new Font("Arial", Font.BOLD, 18));
 
         nuevaVentana.add(mensaje);
         nuevaVentana.setVisible(true);
+ ///////////////////////////////////////////////////////////////////////////////////////////
     }
 
     public static void main(String[] args) {
