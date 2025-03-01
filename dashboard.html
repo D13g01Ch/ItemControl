@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #ffdaab;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .welcome-box {
+            text-align: center;
+            color: black;
+            font-size: 36px;
+            font-weight: bold;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #ff5733;
+            color: white;
+            border-radius: 5px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+
+    <script>
+        // Verifica si el usuario ha iniciado sesión
+        if (localStorage.getItem("loggedIn") !== "true") {
+            window.location.href = "login.html"; // Redirige si no hay sesión activa
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedIn"); // Eliminar sesión
+            window.location.href = "login.html"; // Redirigir al login
+        }
+    </script>
+</head>
+<body>
+    <div class="welcome-box">Bienvenido</div>
+    <button onclick="logout()">Cerrar Sesión</button>
+</body>
+</html>
