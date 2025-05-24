@@ -8,7 +8,7 @@
     <title>Panel Gerente</title>
     <style>
         body {
-            background: url('FONDO3.png') no-repeat center center/cover;
+            background: url('FONDO3new.png') no-repeat center center/cover;
             font-family: Arial, sans-serif;
             display: flex;
             min-height: 100vh;
@@ -108,6 +108,7 @@
         <a href="dashboardgerente.jsp">Inicio</a>
         <a href="UsuariosGerente.jsp">Administrar Usuarios</a>
         <a href="DescuentosGerente.jsp">Administrar Descuentos</a>
+        <a href="PDFGERENTE.jsp">Reporte de caducidad </a>
             <a href="login.jsp">Cerrar sesión</a>
     </div> 
     
@@ -139,7 +140,6 @@
                     <th>Departamento</th>
                     <th>Fecha Caducidad</th>
                     <th>Días restantes</th>
-                    <th>Promoción</th>
                 </tr>
             </thead>
             <tbody>
@@ -150,8 +150,8 @@
                     
                     String sqlProductos = "SELECT TOP 3 lote_Producto as lote, nombre_De_Producto as nombre, " +
                                          "precio_De_Venta as precio, cantidad_En_Stock as stock, " +
-                                         "proveedor, departamento, fecha_De_Caducidad as caducidad, " +
-                                         "Id_Promocion as promocion FROM productos ORDER BY fecha_De_Caducidad ASC";
+                                         "proveedor, departamento, fecha_De_Caducidad as caducidad " +
+                                         "FROM productos ORDER BY fecha_De_Caducidad ASC";
                     
                     Statement stmtProductos = connProductos.createStatement();
                     ResultSet rsProductos = stmtProductos.executeQuery(sqlProductos);
@@ -171,13 +171,7 @@
                     <td><%= rsProductos.getString("departamento") %></td>
                     <td><%= fechaCad %></td>
                     <td><%= diasRestantes %> días</td>
-                    <td>
-                        <% if(rsProductos.getObject("promocion") == null) { %>
-                            <span class="sin-promocion">Sin promoción</span>
-                        <% } else { %>
-                            <%= rsProductos.getInt("promocion") %>
-                        <% } %>
-                    </td>
+                    
                 </tr>
             <%
                     }
@@ -206,9 +200,7 @@
                     <th>Marca</th>
                     <th>Fecha Ingreso</th>
                     <th>Fecha Caducidad</th>
-                    <th>Código Barras</th>
                     <th>Estado</th>
-                    <th>Promoción</th>
                 </tr>
             </thead>
             <tbody>
@@ -221,8 +213,8 @@
                                      "precio_De_Venta as precio, cantidad_En_Stock as stock, " +
                                      "proveedor, departamento, marca_Del_Producto as marca, " +
                                      "fecha_De_Ingreso as ingreso, fecha_De_Caducidad as caducidad, " +
-                                     "codigo_De_Barras as codigo, estado as estado, " +
-                                     "Id_Promocion as promocion FROM productos ORDER BY nombre";
+                                     "estado as estado " +
+                                     "FROM productos ORDER BY nombre";
                     
                     Statement stmtTodos = connTodos.createStatement();
                     ResultSet rsTodos = stmtTodos.executeQuery(sqlTodos);
@@ -244,16 +236,8 @@
                     <td><%= rsTodos.getString("marca") %></td>
                     <td><%= fechaIng %></td>
                     <td><%= fechaCad %></td>
-                    <td><%= rsTodos.getString("codigo") %></td>
                     <td><%= rsTodos.getString("estado") %></td>
-                    <td>
-                        <% if(rsTodos.getObject("promocion") == null) { %>
-                            <span class="sin-promocion">Sin promoción</span>
-                        <% } else { %>
-                            <%= rsTodos.getInt("promocion") %>
-                        <% } %>
-                    </td>
-                </tr>
+                                   </tr>
             <%
                     }
                     rsTodos.close();
